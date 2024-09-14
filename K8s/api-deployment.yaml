@@ -15,13 +15,16 @@ spec:
     spec:
       containers:
         - name: api
-          image: matheusfernandesluz/api-tech-challenge:2.1
+          image: matheusfernandesluz/api-tech-challenge:3.2
           ports:
             - containerPort: 80
-          envFrom:
-            - configMapRef:
-                name: cm-api
           resources:
             requests:
               cpu: 30m
               memory: "512Mi"
+          env:
+          - name: ConnectionStrings__Mysql
+            valueFrom: 
+              secretKeyRef:
+                name: api-secret
+                key: API_CONNECTION_STRING

@@ -16,7 +16,7 @@ namespace Infra.Data
 
             services.AddDbContext<DatabaseContext>(options =>
             {
-                var connectionString = configuration.GetConnectionString("app-database");
+                var connectionString = configuration.GetConnectionString("Mysql");
                 options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
             });
 
