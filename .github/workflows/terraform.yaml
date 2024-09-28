@@ -66,17 +66,17 @@ jobs:
         with:
           terraform_version: 1.5.0
 
-      # Step 4: Mudar para o diretório 'terraform'
-      - name: Change directory to terraform
-        run: cd terraform
-
-      # Step 5: Inicializar o Terraform
+      # Step 4: Inicializar o Terraform
       - name: Terraform Init
-        run: terraform init
+        run: |
+          cd terraform
+          terraform init
 
-      # Step 6: Aplicar o Terraform para rodar a aplicação
+      # Step 5: Aplicar o Terraform para rodar a aplicação
       - name: Terraform Apply
         env:
           TF_VAR_db_password: ${{ secrets.DB_PASSWORD }}
           TF_VAR_ecr_repository_name: ${{ secrets.ECR_REPOSITORY }}:latest
-        run: terraform apply -auto-approve
+        run: |
+          cd terraform
+          terraform apply -auto-approve
