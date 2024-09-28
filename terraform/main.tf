@@ -5,6 +5,4 @@ module "api" {
   db_user = var.db_user
   db_password = var.db_password
   ecr_repository_name = var.ecr_repository_name
-
-  depends_on = [ module.ecr ]
 }
