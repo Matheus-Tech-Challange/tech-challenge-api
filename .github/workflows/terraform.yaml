@@ -32,7 +32,7 @@ jobs:
       # Step 4: Construir a imagem Docker
       - name: Build Docker image
         run: |
-          docker build -t tech-challenge-api -f ./TechChallenge/API/Dockerfile .
+          docker build -t tech-challenge-api -f ./TechChallenge/API/Dockerfile ./TechChallenge
 
       # Step 5: Marcar e empurrar a imagem para o ECR
       - name: Tag and Push Docker image to ECR
