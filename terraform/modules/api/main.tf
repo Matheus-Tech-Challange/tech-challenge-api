@@ -66,6 +66,24 @@ resource "kubernetes_deployment" "api_deployment" {
               memory = "200Mi"
             }
           }
+
+          liveness_probe {
+            http_get {
+              path = "/"
+            }
+            period_seconds        = 10
+            failure_threshold     = 3
+            initial_delay_seconds = 20
+          }
+
+          readiness_probe {
+            http_get {
+              path = "/api/pedidos"
+            }
+            period_seconds        = 10
+            failure_threshold     = 3
+            initial_delay_seconds = 10
+          }
         }
       }
     }
