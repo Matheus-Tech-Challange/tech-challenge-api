@@ -70,11 +70,11 @@ resource "kubernetes_deployment" "api_deployment" {
           liveness_probe {
             http_get {
               port = 80
-              path = "/"
+              path = "/api/pedidos"
             }
-            period_seconds        = 10
-            failure_threshold     = 3
-            initial_delay_seconds = 20
+            period_seconds        = 30
+            failure_threshold     = 5
+            initial_delay_seconds = 40
           }
 
           readiness_probe {
@@ -82,9 +82,9 @@ resource "kubernetes_deployment" "api_deployment" {
               port = 80
               path = "/api/pedidos"
             }
-            period_seconds        = 10
-            failure_threshold     = 3
-            initial_delay_seconds = 10
+            period_seconds        = 30
+            failure_threshold     = 5
+            initial_delay_seconds = 40
           }
         }
       }
