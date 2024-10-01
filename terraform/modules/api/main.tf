@@ -75,6 +75,7 @@ resource "kubernetes_deployment" "api_deployment" {
             period_seconds        = 30
             failure_threshold     = 5
             initial_delay_seconds = 40
+            timeout_seconds = 15
           }
 
           readiness_probe {
@@ -85,6 +86,7 @@ resource "kubernetes_deployment" "api_deployment" {
             period_seconds        = 30
             failure_threshold     = 5
             initial_delay_seconds = 40
+            timeout_seconds = 15
           }
         }
       }
@@ -125,9 +127,12 @@ resource "kubernetes_service" "svc_api_loadbalancer" {
   metadata {
     name = "svc-api-loadbalancer"
     annotations = {
-      "service.beta.kubernetes.io/aws-load-balancer-internal": "true"
+      # "service.beta.kubernetes.io/aws-load-balancer-internal": "true"
+      # "service.beta.kubernetes.io/aws-load-balancer-type": "nlb"
+      # "service.beta.kubernetes.io/aws-load-balancer-nlb-target-type": "ip"
       "service.beta.kubernetes.io/aws-load-balancer-type": "nlb"
-      "service.beta.kubernetes.io/aws-load-balancer-nlb-target-type": "ip"
+      "service.beta.kubernetes.io/aws-load-balancer-scheme": "internal"
+      "service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled": "true"
     }
   }
 
@@ -143,6 +148,5 @@ resource "kubernetes_service" "svc_api_loadbalancer" {
     }
 
     type = "LoadBalancer"
-    load_balancer_source_ranges = ["0.0.0.0/0"]
   }
 }
